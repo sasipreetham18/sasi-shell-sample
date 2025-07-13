@@ -1,12 +1,50 @@
 pipeline {
     agent any
 
+    environment {
+        SCRIPT_FILE = "user-management.sh"
+    }
+
     stages {
-        stage('Run User Management Script') {
+        stage('Preparation') {
             steps {
-                sh 'chmod +x user-management.sh'  // make it executable
-                sh './user-management.sh'         // run it properly
+                echo "Preparing workspace..."
+                sh 'ls -l'
             }
+        }
+
+        stage('Check Docker Version') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
+        stage('Make Script Executable') {
+            steps {
+                sh "chmod +x ${SCRIPT_FILE}"
+            }
+        }
+
+        stage('Run Shell Script') {
+            steps {
+                echo "Running ${SCRIPT_FILE}"
+                sh "./${SCRIPT_FILE}"
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo "No cleanup steps yet."
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed!"
         }
     }
 }
