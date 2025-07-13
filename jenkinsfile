@@ -2,11 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Shell Script') {
+        stage('Run User Management Script') {
             steps {
-                sh 'user-management.sh'
-                sh './user-management.sh'
+                sh 'chmod +x user-management.sh'  // make it executable
+                sh './user-management.sh'         // run it properly
             }
         }
     }
 }
+
