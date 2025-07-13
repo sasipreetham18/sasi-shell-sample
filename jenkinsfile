@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Run Shell Script') {
             steps {
-                sh 'chmod +x system-info.sh'
-                sh './system-info.sh'
+                sh 'user-management.sh'
+                sh './user-management.sh'
             }
         }
     }
