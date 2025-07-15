@@ -1,0 +1,20 @@
+name: Run Shell Script on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-shell-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Make script executable
+        run: chmod +x system-info.sh
+
+      - name: Run shell script
+        run: ./system-info.sh
+
